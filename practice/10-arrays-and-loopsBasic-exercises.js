@@ -41,6 +41,7 @@ function countpositive(nums){
     while(i<nums.length){
         if(nums[i]>0){
             positive+=1;
+            i++;
         }
     }
     return positive;
