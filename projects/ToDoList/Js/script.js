@@ -1,11 +1,15 @@
-const todo=[{
-    name:'',
-    dueDate:''
- }];
+
+const todostore= localStorage.getItem('todo');
+
+const todo= JSON.parse(todostore) || [];
+
  
+ displayText();
+
+
  function displayText() {
      let todolist = '';
-     for (let i = 1; i < todo.length; i++) { 
+     for (let i = 0; i < todo.length; i++) { 
          const {name, dueDate} = todo[i];
          
          todolist += `
@@ -13,12 +17,14 @@ const todo=[{
               <div>${name}</div><div>${dueDate}</div>
                  <button class="js-delete" onclick="
                  todo.splice(${i}, 1);
+                 localStorage.removeItem('todo');
                  displayText();
                  ">Delete</button>
          `;
          
      }
      document.querySelector('.todolist').innerHTML = todolist;
+      localStorage.setItem('todo',JSON.stringify(todo));
  }
  function addText(){
  
