@@ -38,4 +38,23 @@
    }
 
    console.log(removeEgg(['egg','apple','egg','egg','ham']));
+
+   
+    //function that return unique elements
+function uniqueArray(array){
+    const unique=[];
+    for (let index = 0; index < array.length; index++) {
+            if (unique.includes(array[index])) {
+                continue;
+            } else {
+                unique.push(array[index]);
+            }
+     }
+        return unique;
+ } 
+       // tests
+       console.log(uniqueArray(['green','red','blue','red']));
+       console.log(uniqueArray(['green','red','blue','red']));
+
+
    
