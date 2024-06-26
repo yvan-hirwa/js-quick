@@ -18,10 +18,10 @@ let score = JSON.parse(localStorage.getItem('score')) || {
  let isAutoPlay =false;
  let intervalId;
 
- 
+ let ap=false;//reset button change for interactive
 function autoPlay(){
     if (!isAutoPlay) {
-    intervalId= setInterval(function() {
+    intervalId= setInterval(()=> {
         const playerMove= pickComputerMove();
         playGame(playerMove);
     }, 1000);
@@ -31,8 +31,98 @@ function autoPlay(){
     clearInterval(intervalId);
     isAutoPlay=false;
     }
+
+    //interactivity
+
+    if (ap===false) {
+      document.querySelector('.auto-play-button') .innerHTML='Stop';
+        ap=true;
+      } else {
+      document.querySelector('.auto-play-button').innerHTML='Auto Play';
+      ap=false;
+      }
  } 
-  
+  document.querySelector('.js-rock-button')
+      .addEventListener('click', ()=>{
+        playGame('rock');
+      });
+
+  document.querySelector('.js-paper-button')
+      .addEventListener('click', ()=>{
+        playGame('paper');
+      });
+
+  document.querySelector('.js-scissors-button')
+      .addEventListener('click', ()=>{
+        playGame('scissors');
+      });
+      
+  document.querySelector('.reset-score-button')
+      .addEventListener('click', ()=>{
+
+        resetBtn();
+
+
+     /**/
+      });
+
+  function resetBtn(){
+    if (score.ties>0||score.losses>0||score.wins>0) {
+       document.querySelector('.reset-confirmation').innerHTML=` Are you sure you want to reset ?
+    <button class='reset'>Yes</button>
+    <button class='reset'>Cancel</button>
+    `;
+    document.querySelector('.reset')
+      .addEventListener('click',()=>{
+        if (document.querySelector('.reset').innerHTML==='Yes') {
+          score.wins = 0;
+          score.losses = 0;
+          score.ties = 0;
+          localStorage.removeItem('score');
+          updateScoreElement();
+          document.querySelector('.reset-confirmation').innerHTML='';
+        } else {
+          document.querySelector('.reset-confirmation').innerHTML='';
+        }
+      })
+    } else {
+      document.querySelector('.reset-confirmation').innerHTML=` You need to Play first`;
+      setTimeout(() => {
+        document.querySelector('.reset-confirmation').innerHTML=``;
+      }, 2000);
+    }
+   
+  }
+
+
+  document.querySelector('.auto-play-button')
+      .addEventListener('click',()=>{
+
+        autoPlay();
+        
+      })
+
+// shortcuts for playing 
+
+document.body.addEventListener('keydown',(event)=>{
+  if (event.key==='r') {
+    playGame('rock');
+  } 
+  else if(event.key==='p') {
+    playGame('paper');
+  }
+  else if(event.key==='s'){
+    playGame('scissors');
+  }
+  else if(event.key==='Backspace'){
+    resetBtn();
+  }
+  else if(event.key==='a'){
+    autoPlay();
+  }
+})
+
+
   
   function playGame(playerMove) {
     const computerMove = pickComputerMove();
