@@ -68,7 +68,7 @@ function autoPlay(){
 
   function resetBtn(){
     if (score.ties>0||score.losses>0||score.wins>0) {
-       document.querySelector('.reset-confirmation').innerHTML=` Are you sure you want to reset ?
+       document.querySelector('.reset-confirmation').innerHTML=` Are you sure you want to reset the score ?
     <button class='reset'>Yes</button>
     <button class='reset'>Cancel</button>
     `;
