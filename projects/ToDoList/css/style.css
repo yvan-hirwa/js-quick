@@ -49,3 +49,7 @@ body{
     margin-bottom: 10px;
 
 }
+.js-error{
+    padding: 8px;
+    color: rgb(163, 13, 13);
+}
