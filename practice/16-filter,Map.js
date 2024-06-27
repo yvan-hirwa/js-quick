@@ -31,7 +31,7 @@ function removeEgg(foods){
         return true;                
     }
     
-   })
+   });
 }
 
 console.log(removeEgg(['egg','apple','egg','egg','ham']))
