@@ -1,4 +1,5 @@
-//products from products.js
+import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
 
 
 //displaying products on the html document
