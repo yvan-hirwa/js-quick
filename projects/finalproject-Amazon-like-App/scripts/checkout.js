@@ -1,9 +1,10 @@
 import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { formatCurrency } from "./utils/money.js";
 
 let matchingCartItem;
 let cartItemHTML='';
-cart.forEach((cartItem)=>{
+cart.forEach(cartItem =>{
     const productId= cartItem.productId;
 
     products.forEach(product =>{
@@ -26,7 +27,7 @@ cart.forEach((cartItem)=>{
                 ${matchingCartItem.name}
             </div>
             <div class="product-price">
-               $${(matchingCartItem.priceCents /100).toFixed(2)}
+               $${formatCurrency(matchingCartItem.priceCents)}
             </div>
             <div class="product-quantity">
                 <span>
@@ -48,7 +49,7 @@ cart.forEach((cartItem)=>{
             <div class="delivery-option">
                 <input type="radio" checked
                 class="delivery-option-input"
-                name="delivery-option-1">
+                name="delivery-option-${matchingCartItem.id}">
                 <div>
                 <div class="delivery-option-date">
                     Tuesday, June 21
@@ -61,7 +62,7 @@ cart.forEach((cartItem)=>{
             <div class="delivery-option">
                 <input type="radio"
                 class="delivery-option-input"
-                name="delivery-option-1">
+                name="delivery-option-${matchingCartItem.id}">
                 <div>
                 <div class="delivery-option-date">
                     Wednesday, June 15
@@ -74,7 +75,7 @@ cart.forEach((cartItem)=>{
             <div class="delivery-option">
                 <input type="radio"
                 class="delivery-option-input"
-                name="delivery-option-1">
+                name="delivery-option-${matchingCartItem.id}">
                 <div>
                 <div class="delivery-option-date">
                     Monday, June 13
