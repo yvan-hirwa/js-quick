@@ -1,6 +1,6 @@
 import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
-
+import { formatCurrency } from "./utils/money.js";
 
 //displaying products on the html document
 let productHTML='';
@@ -26,7 +26,7 @@ products.forEach(product=>{
             </div>
 
             <div class="product-price">
-                ${(product.priceCents/100).toFixed(2)}
+                $${formatCurrency(product.priceCents)}
             </div>
 
             <div class="product-quantity-container">
@@ -59,6 +59,7 @@ products.forEach(product=>{
 })
 document.querySelector('.js-product-grid').innerHTML= productHTML;
 
+<<<<<<< HEAD
 
 
 function updateCartQuantity() {
@@ -71,14 +72,33 @@ function updateCartQuantity() {
     
 }
 
+=======
+//updating cart quantity (the frontend cart picture)
+function updateCartQuantity(){
+    let cartQuantity=0;
+        cart.forEach((cartItem)=>{
+            cartQuantity+=cartItem.quantity;
+        })
+        document.querySelector('.js-cart-quantity')
+            .innerHTML= cartQuantity;
+        
+}
+>>>>>>> 5776ec91f5fd7d380ed192a261bc90203a45d37e
 
+//button add to cart events 
 document.querySelectorAll('.js-add-to-cart')
     .forEach(button =>{
         button.addEventListener('click',()=>{
             const productId= button.dataset.productId; // getting the product ID from data- attribute in the html
+<<<<<<< HEAD
             addToCart(productId);
             updateCartQuantity();
            
+=======
+           
+            addToCart(productId);
+           updateCartQuantity();
+>>>>>>> 5776ec91f5fd7d380ed192a261bc90203a45d37e
         });
     });
     
