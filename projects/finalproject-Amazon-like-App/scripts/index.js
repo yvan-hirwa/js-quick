@@ -59,7 +59,6 @@ products.forEach(product=>{
 })
 document.querySelector('.js-product-grid').innerHTML= productHTML;
 
-<<<<<<< HEAD
 
 
 function updateCartQuantity() {
@@ -72,33 +71,15 @@ function updateCartQuantity() {
     
 }
 
-=======
-//updating cart quantity (the frontend cart picture)
-function updateCartQuantity(){
-    let cartQuantity=0;
-        cart.forEach((cartItem)=>{
-            cartQuantity+=cartItem.quantity;
-        })
-        document.querySelector('.js-cart-quantity')
-            .innerHTML= cartQuantity;
-        
-}
->>>>>>> 5776ec91f5fd7d380ed192a261bc90203a45d37e
 
 //button add to cart events 
 document.querySelectorAll('.js-add-to-cart')
     .forEach(button =>{
         button.addEventListener('click',()=>{
             const productId= button.dataset.productId; // getting the product ID from data- attribute in the html
-<<<<<<< HEAD
             addToCart(productId);
             updateCartQuantity();
            
-=======
-           
-            addToCart(productId);
-           updateCartQuantity();
->>>>>>> 5776ec91f5fd7d380ed192a261bc90203a45d37e
         });
     });
     

@@ -3,10 +3,12 @@ import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
 
-let matchingCartItem;
+
 let cartItemHTML='';
 cart.forEach(cartItem =>{
     const productId= cartItem.productId;
+
+    let matchingCartItem;
 
     products.forEach(product =>{
         if (product.id === productId) {
@@ -15,7 +17,7 @@ cart.forEach(cartItem =>{
     })
        cartItemHTML+= `
         <div class="cart-item-container 
-            js-cart-item-container-${matchingCartItem.productId}">
+            js-cart-item-container-${matchingCartItem.id}">
             <div class="delivery-date">
                 Delivery date: Tuesday, June 21
             </div>
@@ -38,7 +40,7 @@ cart.forEach(cartItem =>{
                     <span class="update-quantity-link link-primary">
                     Update
                     </span>
-                    <span class="delete-quantity-link link-primary js-delete-link data-delete-link=${matchingCartItem.productId}">
+                    <span class="delete-quantity-link link-primary js-delete-link" data-delete-link="${matchingCartItem.id}">
                     Delete
                     </span>
                 </div>
@@ -93,6 +95,7 @@ cart.forEach(cartItem =>{
         `;
     
 })
+console.log(cartItemHTML);
 //displaying on the page
 document.querySelector('.js-order-summary')
     .innerHTML= cartItemHTML;
