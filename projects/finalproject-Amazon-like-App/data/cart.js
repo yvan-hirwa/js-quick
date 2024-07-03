@@ -1,3 +1,4 @@
+
 export let cart= JSON.parse(localStorage.getItem('cart')) 
 
 if (!cart) {
@@ -35,6 +36,8 @@ export function addToCart(productId) {
     }
 
     saveToStorage();
+    checkoutCountItem();
+    //checkoutQuantityCount();
     //calculating the cart total quantity
     // consideration of cart counting => let cartQuantity= cart.length;
 
@@ -52,4 +55,27 @@ export function removeFromCart(productId) {
     });
     cart = newCart;
     saveToStorage();
+    checkoutCountItem();
+   // checkoutQuantityCount();
 }
+
+
+export function checkoutCountItem(){
+    let itemCount=0;
+    cart.forEach((cartItem)=>{
+        itemCount+=cartItem.quantity;
+    })
+    
+    if (itemCount===0) {
+        document.querySelector('.js-checkout-count')
+            .innerHTML= 'Empty Cart'
+    } else if(itemCount===1) {
+        document.querySelector('.js-checkout-count')
+            .innerHTML= `${itemCount} item`
+    }
+    else{
+        document.querySelector('.js-checkout-count')
+            .innerHTML= `${itemCount} items`
+    }
+    
+    }

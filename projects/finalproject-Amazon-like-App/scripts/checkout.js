@@ -1,7 +1,10 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart, checkoutCountItem } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
+
+
+checkoutCountItem();
 
 
 let cartItemHTML='';
@@ -94,8 +97,9 @@ cart.forEach(cartItem =>{
         </div>
         `;
     
-})
-console.log(cartItemHTML);
+});
+
+
 //displaying on the page
 document.querySelector('.js-order-summary')
     .innerHTML= cartItemHTML;
@@ -113,3 +117,7 @@ document.querySelectorAll('.js-delete-link')
             
         })
     })
+
+  /*  //checkout item count
+
+*/
