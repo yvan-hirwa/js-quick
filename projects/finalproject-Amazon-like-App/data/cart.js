@@ -81,9 +81,9 @@ export function checkoutCountItem(){
         
     }
 
-    export function calculateCartQuantity(counter){
-        cart.forEach((cartItem)=>{
-            counter+=cartItem.quantity;
-        })
-        return counter;
-    }
+export function calculateCartQuantity(counter){
+    cart.forEach((cartItem)=>{
+        counter+=cartItem.quantity;
+    })
+    return counter;
+}
