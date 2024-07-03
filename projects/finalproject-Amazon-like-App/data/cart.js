@@ -64,9 +64,8 @@ export function removeFromCart(productId) {
 
 export function checkoutCountItem(){
     let itemCount=0;
-    cart.forEach((cartItem)=>{
-        itemCount+=cartItem.quantity;
-    })
+
+    itemCount = calculateCartQuantity(itemCount);//function is calculating the quantities in the cart
     
     if (itemCount===0) {
         document.querySelector('.js-checkout-count')
@@ -80,4 +79,11 @@ export function checkoutCountItem(){
             .innerHTML= `${itemCount} items`
     }
         
+    }
+
+    export function calculateCartQuantity(counter){
+        cart.forEach((cartItem)=>{
+            counter+=cartItem.quantity;
+        })
+        return counter;
     }
