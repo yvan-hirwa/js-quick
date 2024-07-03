@@ -19,6 +19,8 @@ function saveToStorage() {
 
 //add to cart button
 export function addToCart(productId) {
+    let selector = Number(document.querySelector('.js-selector').value);
+
     let matchingItem;
     cart.forEach((cartItem)=>{
         if (productId===cartItem.productId) {
@@ -27,16 +29,16 @@ export function addToCart(productId) {
     });                                 // checking of the item exist in cart and adding on the quantity
 
     if (matchingItem) {
-        matchingItem.quantity+=1;
+        matchingItem.quantity+=selector;
     } else {
         cart.push({
         productId,
-        quantity:1
+        quantity:selector
     });
     }
 
     saveToStorage();
-    checkoutCountItem();
+    
     //checkoutQuantityCount();
     //calculating the cart total quantity
     // consideration of cart counting => let cartQuantity= cart.length;
@@ -77,5 +79,5 @@ export function checkoutCountItem(){
         document.querySelector('.js-checkout-count')
             .innerHTML= `${itemCount} items`
     }
-    
+        
     }

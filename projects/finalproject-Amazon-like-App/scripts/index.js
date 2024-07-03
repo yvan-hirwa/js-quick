@@ -1,6 +1,7 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, checkoutCountItem } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
+
 
 //displaying products on the html document
 updateCartQuantity();
@@ -31,8 +32,8 @@ products.forEach(product=>{
             </div>
 
             <div class="product-quantity-container">
-                <select>
-                <option selected value="1">1</option>
+                <select class="js-selector">
+                <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -82,6 +83,7 @@ document.querySelectorAll('.js-add-to-cart')
             const productId= button.dataset.productId; // getting the product ID from data- attribute in the html
             addToCart(productId);
             updateCartQuantity();
+            
            
         });
     });
