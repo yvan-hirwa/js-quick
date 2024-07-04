@@ -61,6 +61,16 @@ export function removeFromCart(productId) {
    // checkoutQuantityCount();
 }
 
+export function updateCheckoutQuantity(productId,newQuantity) {
+    cart.forEach((cartItem)=>{
+        if (cartItem.productId === productId) {
+            cartItem.quantity = newQuantity;
+        }
+    });
+    saveToStorage();
+    checkoutCountItem();
+}
+
 
 export function checkoutCountItem(){
     let itemCount=0;

@@ -212,3 +212,10 @@
 .update-quantity{
   display: none;
 }
+.is-editing-quantity .update-quantity{
+  display: initial;
+}
+
+.is-updateql .updateql{
+  display: none;
+}

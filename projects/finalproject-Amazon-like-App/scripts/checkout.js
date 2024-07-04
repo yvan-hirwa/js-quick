@@ -1,4 +1,4 @@
-import { cart, removeFromCart, checkoutCountItem } from "../data/cart.js";
+import { cart, removeFromCart, checkoutCountItem, updateCheckoutQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
@@ -38,13 +38,13 @@ cart.forEach(cartItem =>{
                 </div>
                 <div class="product-quantity">
                     <span>
-                    Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                    Quantity: <span class="quantity-label updateql">${cartItem.quantity}</span>
                     </span>
-                    <span class="update-quantity-link link-primary js-update-link" data-update-link="${matchingCartItem.id}">
+                    <span class="update-quantity-link updateql link-primary js-update-link" data-update-link="${matchingCartItem.id}">
                     Update
                     </span>
                     
-                        <select class="js-update-selector update-quantity">
+                        <select class="js-update-quantity update-quantity">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -57,7 +57,7 @@ cart.forEach(cartItem =>{
                         <option value="10">10</option>
                         </select>
                     
-                    <span class="save-quantity-link update-quantity link-primary">Save</span>
+                    <span class="save-quantity-link update-quantity link-primary" data-save-link="${matchingCartItem.id}">Save</span>
                     <span class="delete-quantity-link link-primary js-delete-link" data-delete-link="${matchingCartItem.id}">
                     Delete
                     </span>
@@ -136,10 +136,24 @@ document.querySelectorAll('.js-delete-link')
 document.querySelectorAll('.js-update-link')
     .forEach((link)=>{
         link.addEventListener('click', ()=>{
-            //let productId = link.dataset.updateLink
-            let updateSelector = document.querySelector('.js-update-selector');
-            let saveButton = document.querySelector('.save-quantity-link');
-            updateSelector.classList.remove("update-quantity");
-            saveButton.classList.remove("update-quantity");
+            let productId = link.dataset.updateLink
+            const container = document.querySelector(`.js-cart-item-container-${productId}`);
+            container.classList.add("is-editing-quantity"); 
+            container.classList.add("is-updateql");  
+            
+        })
+    })
+
+document.querySelectorAll('.save-quantity-link')
+    .forEach((saveLink)=>{
+        saveLink.addEventListener('click', ()=>{
+            let productId = saveLink.dataset.saveLink
+            let newQuantity = Number(document.querySelector('.js-update-quantity').value);
+            const container = document.querySelector(`.js-cart-item-container-${productId}`);
+            container.classList.remove("is-editing-quantity"); 
+            container.classList.remove("is-updateql"); 
+            updateCheckoutQuantity(productId,newQuantity);
+            checkoutCountItem();
+            document.querySelector('.quantity-label').innerHTML= newQuantity
         })
     })
