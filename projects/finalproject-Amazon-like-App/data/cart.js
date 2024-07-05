@@ -19,7 +19,7 @@ function saveToStorage() {
 
 //add to cart button
 export function addToCart(productId) {
-    let selector = Number(document.querySelector('.js-selector').value);
+    let selector = Number(document.querySelector(`.js-selector-${productId}`).value);
 
     let matchingItem;
     cart.forEach((cartItem)=>{

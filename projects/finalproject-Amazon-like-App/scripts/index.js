@@ -32,7 +32,7 @@ products.forEach(product=>{
             </div>
 
             <div class="product-quantity-container">
-                <select class="js-selector">
+                <select class="js-selector-${product.id}">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
