@@ -1,8 +1,9 @@
-const cart= {
+function Cart(localStoragekey){
+    const cart= {
     cartItems: undefined,
 
     loadFromStorage(){
-         this.cartItems = JSON.parse(localStorage.getItem('cart-oop'))
+         this.cartItems = JSON.parse(localStorage.getItem(localStoragekey))
 
             if (!this.cartItems) {
             this.cartItems= [{
@@ -17,11 +18,11 @@ const cart= {
         }},
     
     saveToStorage() {
-        localStorage.setItem('cart-oop', JSON.stringify(this.cartItems));
+        localStorage.setItem(localStoragekey, JSON.stringify(this.cartItems));
     },
 
     addToCart(productId) {
-        let selector = Number(document.querySelector(`.js-selector-${productId}`).value);
+    
     
         let matchingItem;
         this.cartItems.forEach((cartItem)=>{
@@ -31,11 +32,11 @@ const cart= {
         });                                 // checking of the item exist in cart and adding on the quantity
     
         if (matchingItem) {
-            matchingItem.quantity+=selector;
+            matchingItem.quantity+=1;
         } else {
-            cart.push({
+            this.cartItems.push({
             productId,
-            quantity:selector,
+            quantity:1,
             deliveryOptionsId: '1'
         });
         }
@@ -54,70 +55,74 @@ const cart= {
         });
         cart = newCart;
         this.saveToStorage();
-        checkoutCountItem();
+        this.checkoutCountItem();
        // checkoutQuantityCount();
-    }
+    },
+
+    checkoutCountItem(){
+        let itemCount= 0;
+    
+        itemCount = calculateCartQuantity(itemCount);
+        
+            if (itemCount===0) {
+                document.querySelector('.js-checkout-count')
+                    .innerHTML= 'Empty Cart'
+            } else if(itemCount===1) {
+                document.querySelector('.js-checkout-count')
+                    .innerHTML= `${itemCount} item`
+            }
+            else{
+                document.querySelector('.js-checkout-count')
+                    .innerHTML= `${itemCount} items`
+            }
+            
+        },
+
+        updateCheckoutQuantity(productId,newQuantity) {
+            this.cartItems.forEach((cartItem)=>{
+                if (cartItem.productId === productId) {
+                    cartItem.quantity = newQuantity;
+                }
+            });
+            this.saveToStorage();
+            this.checkoutCountItem();
+        },
+
+        calculateCartQuantity(counter){
+            this.cartItems.forEach((cartItem)=>{
+                counter+=cartItem.quantity;
+            })
+            return counter;
+        },
+
+        updateDeliveryOption(productId, deliveryOptionId){
+            let matchingItem;
+            this.cartItems.forEach((cartItem)=>{
+                if (productId===cartItem.productId) {
+                    matchingItem= cartItem;
+                }
+            });
+        
+            matchingItem.deliveryOptionsId = deliveryOptionId;
+            this.saveToStorage();
+        }
 };
 
-
-
-
-
-
-
-
-//add to cart button
-
-
-//removing from cart using delete link
-
-
-
-export function updateCheckoutQuantity(productId,newQuantity) {
-    cart.forEach((cartItem)=>{
-        if (cartItem.productId === productId) {
-            cartItem.quantity = newQuantity;
-        }
-    });
-    saveToStorage();
-    checkoutCountItem();
+return cart;
 }
 
+const cart = Cart('cart-oop');
+const businessCart = Cart('cart-business');
 
-export function checkoutCountItem(){
-    let itemCount=0;
+cart.loadFromStorage();
 
-    itemCount = calculateCartQuantity(itemCount);//function is calculating the quantities in the cart
-    
-    if (itemCount===0) {
-        document.querySelector('.js-checkout-count')
-            .innerHTML= 'Empty Cart'
-    } else if(itemCount===1) {
-        document.querySelector('.js-checkout-count')
-            .innerHTML= `${itemCount} item`
-    }
-    else{
-        document.querySelector('.js-checkout-count')
-            .innerHTML= `${itemCount} items`
-    }
-        
-    }
+businessCart.loadFromStorage();
 
-export function calculateCartQuantity(counter){
-    cart.forEach((cartItem)=>{
-        counter+=cartItem.quantity;
-    })
-    return counter;
-}
+console.log(cart)
+console.log(businessCart)
 
-export function updateDeliveryOption(productId, deliveryOptionId){
-    let matchingItem;
-    cart.forEach((cartItem)=>{
-        if (productId===cartItem.productId) {
-            matchingItem= cartItem;
-        }
-    });
 
-    matchingItem.deliveryOptionsId = deliveryOptionId;
-    saveToStorage();
-}
+
+
+
+
