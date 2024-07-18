@@ -1,3 +1,5 @@
+import { formatCurrency } from "../scripts/utils/money.js";
+
 export function getProduct(productId){
   let matchingCartItem;
 
@@ -32,7 +34,7 @@ class Product {
   }
 
   getPrice() {
-    return this.priceCents;
+    return `$${formatCurrency(this.priceCents)}`;
   }
 }
 
@@ -52,8 +54,7 @@ class Product {
     ]
   });
 
-  console.log(productTest);
-
+  
 
 export const products = [
   {
@@ -718,4 +719,3 @@ export const products = [
   return new Product(productDetails);
 });
 
-console.log(products); 
